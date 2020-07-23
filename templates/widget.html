@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+     <meta name="description" content="">
+
+     <meta name="author" content="Ayro UI">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>{{ pageTitle }}</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="/static/assets/images/favicon/favicon.ico" type="image/png">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="/static/assets/css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+</head>
+
+<body>
+
+<section class="card-area pb-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            {% if case %}
+            <div class="col-lg-4">
+                <div class="single-card card-style-one mt-30">
+                    <div class="card-header">
+                        <br>
+                        <h6>Covid-19 Cases</h6>
+                        <h4 class="card-title"><a href="https://covid19.valanikevin.com/">{{ case['country'] }}</a></h4>
+                    </div>
+                    <div class="card-content">
+                        <h6>Confirmed: {{ "{:,.0f}".format(case['confirmed']) }}</h6>
+                        <h6>Active: {{ "{:,.0f}".format(case['active']) }}</h6>
+                        <h6>Deaths: {{ "{:,.0f}".format(case['deaths']) }}</h6>
+                        <h6>Recovered: {{ "{:,.0f}".format(case['recovered']) }}</h6>
+                        {% if case['total_tests']!=0 %}
+                        <h6>Tests: {{ "{:,.0f}".format(case['total_tests']) }}</h6>
+                        {% else %}
+                            <h6>Tests: N/A</h6>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+    <!--====== Bootstrap js ======-->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/popper.min.js"></script>
+</body>
+
+</html>

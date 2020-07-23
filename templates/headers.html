@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+
+{% block mainBlock %}
+
+    <section class="header-area header-four mb-100">
+        <div class="navbar-area navbar-eight navbar-transparent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="#">
+                                <img src="/static/assets/images/KLogo.png" width="50px" alt="Logo">
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-content-area">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-10">
+                        <div class="header-content text-center">
+                            <h3 class="header-title">Covid-19 Widgets</h3>
+                            <p class="text">Easily Integrate & Display Covid-19 Case Count Widgets On Your Website and
+                                Application.</p>
+
+                            <div class="">
+                                <form action="#">
+                                    <br>
+                                    <select class="form-control" id="frameSelect">
+                                        {% if cases %}
+                                            {% for case in cases %}
+                                                {% if case['country']!='0' %}
+                                                    <option value="{{ case['country'] }}">{{ case['country'] }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <br>
+                                    <div class="header-btn rounded-buttons">
+                                        <button class="main-btn rounded-three" onclick="updateFrame()">GET INTEGRATION CODE</button>
+                                        <button id="openModal" style="display: none"  data-toggle="modal" data-target="#iFrameModal"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        <br>
+                        <p class="text">Numbers Are Updated Regularly. <br>Source: Worldometers.info</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="card-area pb-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if cases %}
+                    {% for case in cases %}
+                        {% if case['country']!='0' %}
+                            <div class="col-lg-4">
+                                <div class="single-card card-style-one mt-30">
+                                    <div class="card-header">
+                                        <br>
+                                        <h6>Covid-19 Cases</h6>
+                                        <h4 class="card-title"><a target="_blank"
+                                                                  href="/widget/{{ case['country'] }}">{{ case['country'] }}</a>
+                                        </h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <h6>Confirmed: {{ "{:,.0f}".format(case['confirmed']) }}</h6>
+                                        <h6>Active: {{ "{:,.0f}".format(case['active']) }}</h6>
+                                        <h6>Deaths: {{ "{:,.0f}".format(case['deaths']) }}</h6>
+                                        <h6>Recovered: {{ "{:,.0f}".format(case['recovered']) }}</h6>
+                                        {% if case['total_tests']!=0 %}
+                                            <h6>Tests: {{ "{:,.0f}".format(case['total_tests']) }}</h6>
+                                        {% else %}
+                                            <h6>Tests: N/A</h6>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="iFrameModal" tabindex="-1" role="dialog" aria-labelledby="iFrameModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Copy</h6>
+                    <hr>
+                    <code id="frameCode">
+                    </code>
+                    <br><br>
+                    <h6>Preview Widget</h6>
+                    <hr>
+                <iframe id="frameSrc" width="100%" src="/widget/india" style="border: none"></iframe>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function updateFrame(){
+        var cName = document.getElementById("frameSelect").value;
+        document.getElementById("frameCode").innerHTML = "&ltiframe src=\"https://covid19.valanikevin.com/widget/"+cName+"\" style=\"border:none;\" title=\""+cName+" - Covid19 Widget"+"\"&gt;&lt;/iframe&gt";
+        document.getElementById("iTitle").innerText = cName;
+        document.getElementById("frameSrc").src = "/widget/"+cName;
+        document.getElementById("openModal").click();
+    }
+    </script>
+{% endblock mainBlock %}
+
