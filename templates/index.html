@@ -124,7 +124,7 @@
     <script>
     function updateFrame(){
         var cName = document.getElementById("frameSelect").value;
-        document.getElementById("frameCode").innerHTML = "&ltiframe src=\"https://covid19.valanikevin.com/widget/"+cName+"\" style=\"border:none;\" title=\""+cName+" - Covid19 Widget"+"\"&gt;&lt;/iframe&gt";
+        document.getElementById("frameCode").innerHTML = "&ltiframe src=\"https://covid19.valanikevin.com/widget/"+cName+"\" style=\"border:none;\" width=\"100%\" title=\""+cName+" - Covid19 Widget"+"\"&gt;&lt;/iframe&gt";
         document.getElementById("iTitle").innerText = cName;
         document.getElementById("frameSrc").src = "/widget/"+cName;
         document.getElementById("openModal").click();
