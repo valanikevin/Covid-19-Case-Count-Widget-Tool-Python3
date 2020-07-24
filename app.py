@@ -6,15 +6,14 @@ from covid import Covid
 app = Flask(__name__)
 covid = Covid(source="worldometers")
 
-@app.template_filter()
-def caseFormat(value):
-    value = float(value)
-    return "${:.2f}".format(value)
 
 @app.route('/')
+@app.route('/index')
+@app.route('/index.html')
+@app.route('/home')
 def hello_world():
     cases = covid.get_data()
-    return render_template("headers.html", cases = cases, pageTitle = "Covid-19 Widgets | Kevin Valani")
+    return render_template("index.html", cases = cases, pageTitle ="Covid-19 Widgets | Kevin Valani")
 
 @app.route('/widget/<cName>')
 def widget(cName):
